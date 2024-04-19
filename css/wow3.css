@@ -1,0 +1,63 @@
+.ub-emb-overlay {
+    transition: visibility $overlayFadeOutSpeed step-end;
+    visibility: hidden;
+  }
+  
+  .ub-emb-overlay.ub-emb-visible {
+    transition: none;
+    visibility: visible;
+  }
+  
+  .ub-emb-overlay .ub-emb-backdrop,
+  .ub-emb-overlay .ub-emb-scroll-wrapper {
+    opacity: 0;
+    position: fixed;
+    transition:
+      opacity $overlayFadeOutSpeed $overlayFadeTransitionFn,
+      z-index $overlayFadeOutSpeed step-end;
+    z-index: -1;
+  }
+  
+  /* for the sake of mobile browsers, make the backdrop extend 1000px outside of the window */
+  .ub-emb-overlay .ub-emb-backdrop {
+    background: rgba(0, 0, 0, .6);
+    top: -1000px;
+    bottom: -1000px;
+    left: -1000px;
+    right: -1000px;
+  }
+  
+  .ub-emb-overlay .ub-emb-scroll-wrapper {
+    box-sizing: border-box;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    padding: $overlayPadding;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .ub-emb-overlay .ub-emb-scroll-wrapper::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  
+  .ub-emb-overlay.ub-emb-mobile .ub-emb-scroll-wrapper {
+    padding: $overlayPadding 0;
+  }
+  
+  .ub-emb-overlay.ub-emb-visible .ub-emb-backdrop,
+  .ub-emb-overlay.ub-emb-visible .ub-emb-scroll-wrapper {
+    opacity: 1;
+    transition: opacity $overlayFadeInSpeed $overlayFadeTransitionFn;
+  
+    /* This is set 1 higher than sticky bars */
+    z-index: 2147483647;
+  }
+  
